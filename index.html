@@ -11,7 +11,7 @@
     <style>
         body {
             font-family: 'Inter', sans-serif;
-            background: #09090b;
+            background: #000000;
             color: #f4f4f5;
         }
         .title-font {
@@ -38,9 +38,15 @@
         }
     </style>
 </head>
-<body class="min-h-screen flex flex-col justify-between p-3 sm:p-6 select-none">
+<body class="min-h-screen flex flex-col justify-between select-none bg-black">
 
-    <header class="w-full max-w-5xl mx-auto mb-4 flex justify-between items-center bg-zinc-900 border border-zinc-800 px-6 py-3 rounded-2xl shadow-lg">
+    <!-- ================= FULLSCREEN IMAGE SPLASH SCREEN ================= -->
+    <div id="screen-splash" onclick="startCategory('Pop Culture Mix')" class="fixed inset-0 z-50 bg-black cursor-pointer flex items-center justify-center overflow-hidden">
+        <img src="trivia splash.jpg" alt="Trivia Pursuit Splash Screen" class="w-full h-full object-contain">
+    </div>
+
+    <!-- Header (Hidden on splash) -->
+    <header id="game-header" class="hidden w-full max-w-5xl mx-auto my-4 flex justify-between items-center bg-zinc-900 border border-zinc-800 px-6 py-3 rounded-2xl shadow-lg">
         <div class="flex items-center space-x-3">
             <span class="w-3 h-3 bg-emerald-500 rounded-full animate-ping"></span>
             <span class="title-font text-xl tracking-wider text-emerald-400 font-bold">TRIVIAL PURSUIT // UNLIMITED</span>
@@ -53,111 +59,7 @@
         </div>
     </header>
 
-    <main id="app-container" class="w-full max-w-5xl mx-auto flex-grow flex flex-col justify-center my-auto">
-        
-        <!-- ================= SPLASH & CATEGORY SCREEN ================= -->
-        <div id="screen-menu" class="flex flex-col space-y-6">
-            <div class="text-center space-y-2 mb-2">
-                <h1 class="title-font text-4xl sm:text-6xl font-bold text-white tracking-wide">SELECT YOUR TRIVIA UNIVERSE</h1>
-                <p class="text-zinc-400 text-sm sm:text-base max-w-xl mx-auto">
-                    Correct answers advance instantly. Incorrect answers wait for you to review and press next. Enjoy 15 to 30 randomized questions per run!
-                </p>
-            </div>
-
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                <!-- 1. Star Trek TNG -->
-                <button onclick="startCategory('Star Trek: The Next Generation')" class="arcade-card bg-gradient-to-br from-blue-950 to-indigo-950 border-2 border-blue-600/60 p-6 rounded-3xl text-left flex flex-col justify-between shadow-xl">
-                    <div>
-                        <span class="bg-blue-600 text-white px-3 py-1 rounded-full text-xs font-bold tracking-wider uppercase">Sci-Fi</span>
-                        <h3 class="title-font text-2xl text-white mt-3">Star Trek: TNG</h3>
-                        <p class="text-zinc-300 text-xs mt-2 leading-relaxed">Bridge protocol, Captain Picard, Klingon lore, and technological anomalies aboard the Enterprise-D.</p>
-                    </div>
-                    <div class="mt-6 flex justify-between items-center text-xs text-blue-400 font-bold">
-                        <span>100+ Questions</span>
-                        <span>INITIATE &rarr;</span>
-                    </div>
-                </button>
-
-                <!-- 2. Friends -->
-                <button onclick="startCategory('Friends')" class="arcade-card bg-gradient-to-br from-amber-950 to-orange-950 border-2 border-amber-600/60 p-6 rounded-3xl text-left flex flex-col justify-between shadow-xl">
-                    <div>
-                        <span class="bg-amber-600 text-white px-3 py-1 rounded-full text-xs font-bold tracking-wider uppercase">Sitcom</span>
-                        <h3 class="title-font text-2xl text-white mt-3">Friends</h3>
-                        <p class="text-zinc-300 text-xs mt-2 leading-relaxed">Central Perk, smelly cat, pivot moments, apartment bets, and iconic New York moments.</p>
-                    </div>
-                    <div class="mt-6 flex justify-between items-center text-xs text-amber-400 font-bold">
-                        <span>100+ Questions</span>
-                        <span>INITIATE &rarr;</span>
-                    </div>
-                </button>
-
-                <!-- 3. Doctor Who -->
-                <button onclick="startCategory('Doctor Who')" class="arcade-card bg-gradient-to-br from-violet-950 to-purple-950 border-2 border-violet-600/60 p-6 rounded-3xl text-left flex flex-col justify-between shadow-xl">
-                    <div>
-                        <span class="bg-violet-600 text-white px-3 py-1 rounded-full text-xs font-bold tracking-wider uppercase">Time Travel</span>
-                        <h3 class="title-font text-2xl text-white mt-3">Doctor Who</h3>
-                        <p class="text-zinc-300 text-xs mt-2 leading-relaxed">TARDIS mechanics, Daleks, sonic screwdrivers, regenerations, and wibbly-wobbly time stuff.</p>
-                    </div>
-                    <div class="mt-6 flex justify-between items-center text-xs text-violet-400 font-bold">
-                        <span>100+ Questions</span>
-                        <span>INITIATE &rarr;</span>
-                    </div>
-                </button>
-
-                <!-- 4. Rocky -->
-                <button onclick="startCategory('Rocky')" class="arcade-card bg-gradient-to-br from-red-950 to-rose-950 border-2 border-red-600/60 p-6 rounded-3xl text-left flex flex-col justify-between shadow-xl">
-                    <div>
-                        <span class="bg-red-600 text-white px-3 py-1 rounded-full text-xs font-bold tracking-wider uppercase">Cinema</span>
-                        <h3 class="title-font text-2xl text-white mt-3">Rocky</h3>
-                        <p class="text-zinc-300 text-xs mt-2 leading-relaxed">The Italian Stallion, Philadelphia steps, Apollo Creed, Clubber Lang, and championship grit.</p>
-                    </div>
-                    <div class="mt-6 flex justify-between items-center text-xs text-red-400 font-bold">
-                        <span>100+ Questions</span>
-                        <span>INITIATE &rarr;</span>
-                    </div>
-                </button>
-
-                <!-- 5. Twilight -->
-                <button onclick="startCategory('Twilight')" class="arcade-card bg-gradient-to-br from-stone-900 to-zinc-950 border-2 border-stone-600/60 p-6 rounded-3xl text-left flex flex-col justify-between shadow-xl">
-                    <div>
-                        <span class="bg-stone-600 text-white px-3 py-1 rounded-full text-xs font-bold tracking-wider uppercase">Fantasy</span>
-                        <h3 class="title-font text-2xl text-white mt-3">Twilight</h3>
-                        <p class="text-zinc-300 text-xs mt-2 leading-relaxed">Forks, vampires who sparkle, werewolf packs, baseball storms, and Cullen family history.</p>
-                    </div>
-                    <div class="mt-6 flex justify-between items-center text-xs text-stone-300 font-bold">
-                        <span>100+ Questions</span>
-                        <span>INITIATE &rarr;</span>
-                    </div>
-                </button>
-
-                <!-- 6. K-pop Demon Hunters -->
-                <button onclick="startCategory('K-pop Demon Hunters')" class="arcade-card bg-gradient-to-br from-pink-950 to-purple-950 border-2 border-pink-600/60 p-6 rounded-3xl text-left flex flex-col justify-between shadow-xl">
-                    <div>
-                        <span class="bg-pink-600 text-white px-3 py-1 rounded-full text-xs font-bold tracking-wider uppercase">Animation & Music</span>
-                        <h3 class="title-font text-2xl text-white mt-3">K-pop Demon Hunters</h3>
-                        <p class="text-zinc-300 text-xs mt-2 leading-relaxed">Huntrix (Rumi, Mira, Zoey), the Saja Boys, chart-topping hits like "Golden", and Korean shamanic lore.</p>
-                    </div>
-                    <div class="mt-6 flex justify-between items-center text-xs text-pink-400 font-bold">
-                        <span>100+ Questions</span>
-                        <span>INITIATE &rarr;</span>
-                    </div>
-                </button>
-            </div>
-
-            <!-- Full Mix Banner -->
-            <div class="mt-2">
-                <button onclick="startCategory('Pop Culture Mix')" class="arcade-card w-full bg-gradient-to-r from-emerald-950 via-teal-950 to-cyan-950 border-2 border-emerald-600 p-6 rounded-3xl text-left flex flex-col sm:flex-row justify-between items-start sm:items-center shadow-xl">
-                    <div>
-                        <span class="bg-emerald-600 text-white px-3 py-1 rounded-full text-xs font-bold tracking-wider uppercase">Ultimate Challenge</span>
-                        <h3 class="title-font text-2xl sm:text-3xl text-white mt-2">Pop Culture Mix</h3>
-                        <p class="text-zinc-300 text-xs sm:text-sm mt-1">A randomized grand tour combining all expanded universes, movies, TV shows, and fandoms.</p>
-                    </div>
-                    <div class="mt-4 sm:mt-0 bg-emerald-500 text-black px-6 py-3 rounded-2xl title-font font-bold text-lg">
-                        START MIX GAME &rarr;
-                    </div>
-                </button>
-            </div>
-        </div>
+    <main id="app-container" class="w-full max-w-5xl mx-auto flex-grow flex flex-col justify-center my-auto p-3 sm:p-6">
 
         <!-- ================= QUIZ SCREEN ================= -->
         <div id="screen-quiz" class="hidden flex flex-col space-y-6">
@@ -202,7 +104,7 @@
             </div>
 
             <div class="flex justify-between items-center px-2">
-                <button onclick="returnToMenu()" class="text-xs text-zinc-400 hover:text-white transition font-semibold">&larr; ABORT & RETURN TO MENU</button>
+                <button onclick="returnToSplash()" class="text-xs text-zinc-400 hover:text-white transition font-semibold">&larr; ABORT & RETURN TO SPLASH</button>
                 <span class="text-xs text-zinc-500">Correct answers advance automatically | Incorrect waits for Next</span>
             </div>
         </div>
@@ -234,8 +136,8 @@
                 </div>
 
                 <div class="flex flex-col sm:flex-row justify-center gap-4">
-                    <button onclick="returnToMenu()" class="bg-zinc-800 hover:bg-zinc-700 text-white px-6 py-4 rounded-2xl title-font font-bold text-lg transition">
-                        CHOOSE ANOTHER UNIVERSE
+                    <button onclick="returnToSplash()" class="bg-zinc-800 hover:bg-zinc-700 text-white px-6 py-4 rounded-2xl title-font font-bold text-lg transition">
+                        RETURN TO SPLASH SCREEN
                     </button>
                     <button onclick="restartCategory()" class="bg-emerald-500 hover:bg-emerald-400 text-black px-6 py-4 rounded-2xl title-font font-bold text-lg transition shadow-lg">
                         RE-RUN THIS CATEGORY
@@ -246,7 +148,7 @@
 
     </main>
 
-    <footer class="w-full max-w-5xl mx-auto mt-6 text-center text-xs text-zinc-500">
+    <footer id="game-footer" class="hidden w-full max-w-5xl mx-auto my-6 text-center text-xs text-zinc-500">
         Universal Trivial Pursuit Engine &bull; Expanded 100+ Questions Edition &bull; 2026
     </footer>
 
@@ -300,7 +202,7 @@
             playSound('click');
         }
 
-        // Master Trivia Database (100+ questions per category)
+        // Master Trivia Database
         const triviaDatabase = {
             "Star Trek: The Next Generation": [
                 { question: "What is the full name of Captain Picard's beloved android second officer?", options: ["Data", "B-4", "Lore", "Noonian Soong"], answer: 0, explanation: "Lieutenant Commander Data was created by Dr. Noonien Soong on Omicron Theta." },
@@ -315,21 +217,14 @@
                 { question: "In what series finale episode does Q place Picard in a time trial across past, present, and future?", options: ["All Good Things...", "The Best of Both Worlds", "Encounter at Farpoint", "Yesterday's Enterprise"], answer: 0, explanation: "In 'All Good Things...', Picard investigates an anti-time anomaly." },
                 { question: "What is the name of Worf's adoptive human mother?", options: ["Helena Rozhenko", "Lwaxana Troi", "Keiko O'Brien", "Alyssa Ogawa"], answer: 0, explanation: "Sergei and Helena Rozhenko adopted Worf as a child." },
                 { question: "What musical instrument does Captain Picard play in several episodes?", options: ["Klaatu kesh", "Flute (Resikan flute)", "Clarinet", "Violin"], answer: 1, explanation: "Picard plays the Resikan flute, notably learned in 'The Inner Light'." },
-                {
-                question: "What famous fictional detective program does Lieutenant Commander Data frequently run on the Holodeck?",
-                options: ["Sherlock Holmes mysteries", "Dixon Hill detective agency", "Hercule Poirot mysteries", "Philip Marlowe adventures"],
-                answer: 0,
-                explanation: "Data loves playing Sherlock Holmes alongside Geordi La Forge as Dr. Watson on the Enterprise-D holodeck."
-                }
-                ,
+                { question: "What famous fictional detective program does Lieutenant Commander Data frequently run on the Holodeck?", options: ["Sherlock Holmes mysteries", "Dixon Hill detective agency", "Hercule Poirot mysteries", "Philip Marlowe adventures"], answer: 0, explanation: "Data loves playing Sherlock Holmes alongside Geordi La Forge as Dr. Watson on the Enterprise-D holodeck." },
                 { question: "What alien race is known for wearing elaborate head ridges and managing Terá Nova or mining colonies like Bajor?", options: ["Cardassians", "Ferengi", "Bajorans", "Breen"], answer: 0, explanation: "Cardassians ruled Bajor with brutal military occupation for decades." },
                 { question: "What species is obsessed with profit, rules of acquisition, and has large ears?", options: ["Ferengi", "Klingons", "Trill", "Talaxians"], answer: 0, explanation: "Ferengi culture revolves around commercial gain and the Rules of Acquisition." },
                 { question: "Who is the Chief Engineer of the Enterprise-D for the majority of the series run?", options: ["Geordi La Forge", "Miles O'Brien", "Montgomery Scott", "Reginald Barclay"], answer: 0, explanation: "Geordi La Forge transitioned from helm officer to Chief Engineer in Season 2." },
                 { question: "What is the name of Worf's proud and rebellious son with K'Ehleyr?", options: ["Alexander Rozhenko", "Kurn", "Kahless", "B'Elanna"], answer: 0, explanation: "Alexander joined Worf aboard the Enterprise during his youth." },
-                { question: "What species can join with a symbiont to inherit past lifetimes of memories, like Jadzia or Dax?", options: ["Trill", "Vulcan", "Betazoid", "Betazoid"], answer: 0, explanation: "Trills host sentient symbionts." },
+                { question: "What species can join with a symbiont to inherit past lifetimes of memories, like Jadzia or Dax?", options: ["Trill", "Vulcan", "Betazoid", "Klingon"], answer: 0, explanation: "Trills host sentient symbionts." },
                 { question: "What android scientist built Data and Lore?", options: ["Dr. Noonien Soong", "Dr. Richard Daystrom", "Dr. Ira Graves", "Dr. Tolian Soran"], answer: 0, explanation: "Dr. Noonien Soong created the cybernetic android series." },
                 { question: "What rank does Wesley Crusher hold when he first leaves Starfleet Academy to travel with the Traveler?", options: ["Acting Ensign", "Cadet First Class", "Lieutenant Junior Grade", "Commander"], answer: 0, explanation: "Captain Picard granted Wesley the honorary rank of Acting Ensign." }
-                // [Expanded with additional Star Trek TNG entries up to 100+ items in full master pool]
             ],
             "Friends": [
                 { question: "What is the name of Joey Tribbiani's beloved stuffed penguin?", options: ["Hugsy", "Pingu", "Waddles", "Mr. Cuddles"], answer: 0, explanation: "Hugsy is Joey's bedtime penguin pal." },
@@ -344,10 +239,9 @@
                 { question: "What do Monica and Chandler name their adopted twins?", options: ["Erica and Jack", "Frank and Alice", "Ben and Emma", "Chandler Jr. and Monica Jr."], answer: 0, explanation: "They named them Erica and Jack." },
                 { question: "What pet monkey does Ross own during the early seasons?", options: ["Marcel", "Barnaby", "Coco", "Curious George"], answer: 0, explanation: "Marcel was Ross's capuchin monkey companion." },
                 { question: "What coffee shop do the friends hang out at in Greenwich Village?", options: ["Central Perk", "Java Jive", "The Bean Counter", "Manhattan Roast"], answer: 0, explanation: "Central Perk is their regular couch hangout spot." },
-                { question: "What is the name of Joey's actor roommate before Chandler?", options: ["Janine", "Eddie", "Kip", "Gunther"], answer: 2, explanation: "Kip was Chandler's old roommate before Joey moved in." },
+                { question: "What is the name of Joey's actor roommate before Chandler?", options: ["Kip", "Eddie", "Janine", "Gunther"], answer: 0, explanation: "Kip was Chandler's old roommate before Joey moved in." },
                 { question: "Who marries Chandler and Monica in Las Vegas and later in New York?", options: ["Joey", "Phoebe", "Ross", "Rachel"], answer: 0, explanation: "Joey gets ordained online to perform their wedding ceremony." },
-                { question: "What is Phoebe's identical twin sister's name?", options: ["Ursula", "Lily", "Ursula", "Wendy"], answer: 0, explanation: "Ursula Buffay is Phoebe's eccentric twin sister." }
-                // [Expanded with additional Friends entries up to 100+ items in full master pool]
+                { question: "What is Phoebe's identical twin sister's name?", options: ["Ursula", "Lily", "Wendy", "Pamela"], answer: 0, explanation: "Ursula Buffay is Phoebe's eccentric twin sister." }
             ],
             "Doctor Who": [
                 { question: "What does the acronym TARDIS stand for?", options: ["Time and Relative Dimension in Space", "Time and Relative Distance in Speed", "Temporal And Relative Dimension In Space", "Tachyon Area Rotor Dimensional Interlink"], answer: 0, explanation: "TARDIS stands for Time and Relative Dimension in Space." },
@@ -360,7 +254,6 @@
                 { question: "What companion played by Catherine Tate shared witty banter with the Tenth Doctor?", options: ["Donna Noble", "Rose Tyler", "Amy Pond", "Clara Oswald"], answer: 0, explanation: "Donna Noble was the brilliant temp from Chiswick." },
                 { question: "What species are armor-plated warlike clones with potato-like heads?", options: ["Sontarans", "Judoon", "Slitheen", "Cybermen"], answer: 0, explanation: "Sontarans view dying in battle as the ultimate honor." },
                 { question: "What futuristic space station hosts guests at the end of the universe in 'New Earth'?", options: ["Platform One", "Space Station 5", "Starbase 47", "Apex Prime"], answer: 0, explanation: "Platform One hosted guests to watch Earth's destruction." }
-                // [Expanded with additional Doctor Who entries up to 100+ items in full master pool]
             ],
             "Rocky": [
                 { question: "What is Rocky Balboa's famous professional boxing nickname?", options: ["The Italian Stallion", "The Southpaw Slugger", "The Philly Express", "The Brawler"], answer: 0, explanation: "Rocky fought as 'The Italian Stallion'." },
@@ -373,7 +266,6 @@
                 { question: "What theme song composed by Bill Conti plays during the museum steps run?", options: ["'Gonna Fly Now'", "'Eye of the Tiger'", "'Burning Heart'", "'Hearts on Fire'"], answer: 0, explanation: "'Gonna Fly Now' is the iconic cinematic theme." },
                 { question: "What Survivor rock anthem serves as the theme for Rocky III?", options: ["'Eye of the Tiger'", "'Gonna Fly Now'", "'No Easy Way Out'", "'Living in America'"], answer: 0, explanation: "'Eye of the Tiger' became a global chart smash." },
                 { question: "What restaurant does Rocky own and operate in later life?", options: ["Adrian's", "Mickey's Diner", "Stallion Subs", "Philly Corner Bar"], answer: 0, explanation: "Rocky runs an Italian restaurant named after his late wife." }
-                // [Expanded with additional Rocky entries up to 100+ items in full master pool]
             ],
             "Twilight": [
                 { question: "What foggy town in Washington does Bella Swan move to?", options: ["Forks", "Seattle", "Port Angeles", "La Push"], answer: 0, explanation: "Forks has constant overcast weather hiding vampires." },
@@ -386,7 +278,6 @@
                 { question: "What sport do the Cullens play during thunderstorms?", options: ["Baseball", "Tennis", "Cricket", "Lacrosse"], answer: 0, explanation: "Thunderclaps cover the impact sound of vampire baseball." },
                 { question: "What tracker vampire hunts Bella in the first book?", options: ["James", "Victoria", "Laurent", "Riley Biers"], answer: 0, explanation: "James was a relentless tracker." },
                 { question: "What gift does Bella discover she possesses after transforming into a vampire?", options: ["A mental shield protecting others", "Super-speed", "Pyrokinesis", "Invisibility"], answer: 0, explanation: "Bella's mental shield expands to protect others from psychic attacks." }
-                // [Expanded with additional Twilight entries up to 100+ items in full master pool]
             ],
             "K-pop Demon Hunters": [
                 { question: "What is the name of the world-famous K-pop girl group who lead double lives as demon hunters?", options: ["Huntrix", "Saja Girls", "Blackpink-X", "Seoul Sirens"], answer: 0, explanation: "Huntrix consists of Rumi, Mira, and Zoey." },
@@ -399,7 +290,6 @@
                 { question: "Which awards did the film win at the Academy Awards?", options: ["Best Animated Feature & Best Original Song", "Best Picture", "Best Sound Mixing only", "Best Costume Design"], answer: 0, explanation: "Won Best Animated Feature and Best Original Song for 'Golden'." },
                 { question: "What malevolent underworld entity serves as a primary demonic force?", options: ["Gwi-Ma", "Dokkaebi King", "Nine-Tailed Fox", "Imugi Serpent"], answer: 0, explanation: "Gwi-Ma is among the powerful dark entities." },
                 { question: "How did co-director Maggie Kang describe her inspiration for the film?", options: ["As a 'love letter to K-pop' and her Korean heritage", "As a sci-fi cyberpunk experiment", "As a gothic horror romance", "As an action-thriller remake"], answer: 0, explanation: "Kang blended Korean mythology and contemporary K-pop." }
-                // [Expanded with additional K-pop Demon Hunters entries up to 100+ items in full master pool]
             ],
             "Pop Culture Mix": [] // Populated dynamically from all categories
         };
@@ -438,20 +328,26 @@
             correctCount = 0;
 
             document.getElementById('quiz-category-tag').textContent = categoryName;
+
+            // Show UI header and footer, switch screen
+            document.getElementById('game-header').classList.remove('hidden');
+            document.getElementById('game-footer').classList.remove('hidden');
             showScreen('screen-quiz');
             loadQuestion();
         }
 
         function showScreen(screenId) {
-            ['screen-menu', 'screen-quiz', 'screen-results'].forEach(id => {
+            ['screen-splash', 'screen-quiz', 'screen-results'].forEach(id => {
                 document.getElementById(id).classList.add('hidden');
             });
             document.getElementById(screenId).classList.remove('hidden');
         }
 
-        function returnToMenu() {
+        function returnToSplash() {
             playSound('click');
-            showScreen('screen-menu');
+            document.getElementById('game-header').classList.add('hidden');
+            document.getElementById('game-footer').classList.add('hidden');
+            showScreen('screen-splash');
         }
 
         function restartCategory() {
@@ -574,112 +470,3 @@
     </script>
 </body>
 </html>
-         return;
-            }
-
-            isAnswered = false;
-            let q = activeQuestions[currentIndex];
-
-            document.getElementById('quiz-progress-text').textContent = `Question ${currentIndex + 1} of ${activeQuestions.length}`;
-            document.getElementById('quiz-score').textContent = score;
-            document.getElementById('quiz-streak').textContent = `${streak}x`;
-            document.getElementById('question-text').textContent = q.question;
-
-            // Hide feedback
-            let feedbackContainer = document.getElementById('feedback-container');
-            feedbackContainer.classList.add('hidden');
-
-            // Populate options randomly
-            let container = document.getElementById('options-container');
-            container.innerHTML = '';
-
-            let optionsWithIndex = q.options.map((opt, idx) => ({ text: opt, originalIndex: idx }));
-            optionsWithIndex.sort(() => 0.5 - Math.random());
-
-            optionsWithIndex.forEach(item => {
-                let btn = document.createElement('button');
-                btn.className = "arcade-card bg-zinc-800 hover:bg-zinc-700 text-zinc-200 border border-zinc-700 p-5 text-left font-semibold rounded-2xl transition flex justify-between items-center";
-                btn.innerHTML = `<span>${item.text}</span> <span class="text-xs text-zinc-500 title-font">&rarr;</span>`;
-                btn.onclick = () => submitAnswer(item.originalIndex, q.answer, q.explanation, btn);
-                container.appendChild(btn);
-            });
-        }
-
-        function submitAnswer(selectedIndex, correctIndex, explanation, buttonElement) {
-            if (isAnswered) return;
-            isAnswered = true;
-
-            let allButtons = document.querySelectorAll('#options-container button');
-            allButtons.forEach(btn => btn.disabled = true);
-
-            let feedbackContainer = document.getElementById('feedback-container');
-            let feedbackMessage = document.getElementById('feedback-message');
-            feedbackContainer.classList.remove('hidden');
-
-            if (selectedIndex === correctIndex) {
-                playSound('correct');
-                streak++;
-                let points = 100 + (streak * 25);
-                score += points;
-                correctCount++;
-
-                buttonElement.className = "arcade-card bg-emerald-600 text-black font-bold p-5 text-left rounded-2xl flex justify-between items-center shadow-lg";
-                feedbackMessage.className = "p-4 rounded-2xl font-semibold text-sm bg-emerald-950 text-emerald-300 border border-emerald-800";
-                feedbackMessage.innerHTML = `<strong>CORRECT! (+${points} pts)</strong><br><span class="text-xs text-zinc-300 mt-1 block">${explanation}</span>`;
-            } else {
-                playSound('wrong');
-                streak = 0;
-
-                buttonElement.className = "arcade-card bg-rose-600 text-white font-bold p-5 text-left rounded-2xl flex justify-between items-center";
-                feedbackMessage.className = "p-4 rounded-2xl font-semibold text-sm bg-rose-950 text-rose-300 border border-rose-800";
-                feedbackMessage.innerHTML = `<strong>INCORRECT.</strong><br><span class="text-xs text-zinc-300 mt-1 block">${explanation}</span>`;
-
-                // Highlight correct button
-                allButtons.forEach(btn => {
-                    let q = activeQuestions[currentIndex];
-                    if (btn.textContent.includes(q.options[q.answer])) {
-                        btn.className = "arcade-card bg-emerald-700 text-white font-bold p-5 text-left rounded-2xl flex justify-between items-center";
-                    }
-                });
-            }
-
-            document.getElementById('quiz-score').textContent = score;
-            document.getElementById('quiz-streak').textContent = `${streak}x`;
-        }
-
-        function nextQuestion() {
-            playSound('click');
-            currentIndex++;
-            loadQuestion();
-        }
-
-        function endGame() {
-            showScreen('screen-results');
-
-            let total = activeQuestions.length;
-            let accuracy = Math.round((correctCount / total) * 100);
-
-            document.getElementById('result-score').textContent = score;
-            document.getElementById('result-accuracy').textContent = `${accuracy}%`;
-
-            let rank = "TRIVIAL RECRUIT";
-            let commentary = "Good effort! Keep exploring these universes to master all trivia archives.";
-
-            if (accuracy >= 90) {
-                rank = "TRIVIAL GRANDMASTER";
-                commentary = "Absolute perfection! Your knowledge spans across dimensions, fandoms, and pop culture history.";
-            } else if (accuracy >= 75) {
-                rank = "ELITE SCHOLAR";
-                commentary = "Impressive intellectual prowess. You have a deep mastery of this universe.";
-            } else if (accuracy >= 50) {
-                rank = "SEASOND EXPLORER";
-                commentary = "Solid performance. You know your way around the core trivia checkpoints.";
-            }
-
-            document.getElementById('result-rank').textContent = rank;
-            document.getElementById('result-commentary').textContent = commentary;
-        }
-    </script>
-</body>
-</html>
-```
